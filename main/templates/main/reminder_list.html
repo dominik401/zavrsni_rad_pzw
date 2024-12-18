@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reminders</title>
+</head>
+<body>
+    <form method="GET" action="">
+        <input type="text" name="q" placeholder="Search Reminders..." value="{{ request.GET.q }}">
+        <button type="submit">Search</button>
+    </form>
+    <ul>
+        {% for reminder in object_list %}
+            <li>
+                task: {{ reminder.task }}<br>
+                reminder_time: {{ reminder.reminder_time}}<br>
+                created_at: {{ reminder.created_at }}<br>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

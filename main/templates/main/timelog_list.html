@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Log</title>
+</head>
+<body>
+    <form method="GET" action="">
+        <input type="text" name="q" placeholder="Search Time..." value="{{ request.GET.q }}">
+        <button type="submit">Search</button>
+    </form>
+    <ul>
+        {% for time_log in object_list %}
+            <li>
+                task: {{ time_log.task }}<br>
+                start_time: {{ time_log.task}}<br>
+                end_time: {{ time_log.end_time }}<br>
+                notes: {{ time_log.notes}}<br>
+            </li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>

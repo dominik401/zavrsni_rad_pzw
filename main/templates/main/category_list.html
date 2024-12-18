@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category</title>
+</head>
+<body>
+    <form method="GET" action="">
+        <input type="text" name="q" placeholder="Search Category..." value="{{ request.GET.q }}">
+        <button type="submit">Search</button>
+    </form>
+    <ul>
+        {% for category in object_list %}
+            <li>
+                name: {{ category.name }}<br>
+                color: {{ category.color}}<br>
+                owner: {{ category.owner }}<br>
+                
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
