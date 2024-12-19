@@ -22,6 +22,9 @@
                 status: {{ task.status }}<br>
                 project: {{ task.project}}<br>
                 assigned_to: {{ task.assigned_to}}<br>
+                <a href="{% url 'task_detail' task.id %}">
+                    Detalji
+                </a>
             </li>
         {% endfor %}
     </ul>

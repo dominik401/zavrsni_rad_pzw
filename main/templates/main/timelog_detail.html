@@ -1,0 +1,18 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalji o Time logu</title>
+</head>
+<body>
+    {% block content %}
+    task: {{ time_log.task }}<br>
+    start_time: {{ time_log.task}}<br>
+    end_time: {{ time_log.end_time }}<br>
+    notes: {{ time_log.notes}}<br>
+    <a href="{% url 'timelog_list' %}">Natrag na popis</a>
+    {% endblock %}
+</body>
+</html>

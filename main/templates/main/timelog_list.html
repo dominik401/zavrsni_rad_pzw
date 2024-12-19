@@ -17,6 +17,9 @@
                 start_time: {{ time_log.task}}<br>
                 end_time: {{ time_log.end_time }}<br>
                 notes: {{ time_log.notes}}<br>
+                <a href="{% url 'timelog_detail' time_log.id %}">
+                    Detalji
+                </a>
             </li>
         {% endfor %}
     </ul>

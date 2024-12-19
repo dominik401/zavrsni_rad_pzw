@@ -16,6 +16,9 @@
                 task: {{ reminder.task }}<br>
                 reminder_time: {{ reminder.reminder_time}}<br>
                 created_at: {{ reminder.created_at }}<br>
+                <a href="{% url 'reminder_detail' reminder.id %}">
+                    Detalji
+                </a>
             </li>
         {% endfor %}
     </ul>

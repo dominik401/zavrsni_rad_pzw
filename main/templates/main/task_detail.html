@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalji taskova</title>
+</head>
+<body>
+    {% block content %}
+    title: {{ task.title }}<br>
+    description: {{ task.description}}<br>
+    created_at: {{ task.created_at }}<br>
+    updated_at: {{ task.updated_at}}<br>
+    due_date: {{ task.due_date }}<br>
+    priority: {{ task.priority}}<br>
+    status: {{ task.status }}<br>
+    project: {{ task.project}}<br>
+    assigned_to: {{ task.assigned_to}}<br>
+    <a href="{% url 'task_list' %}">Natrag na popis</a>
+    {% endblock %}
+</body>
+</html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,6 +6,8 @@
     <title>Project</title>
 </head>
 <body>
+    {%block content%}
+
     <form method="GET" action="">
         <input type="text" name="q" placeholder="Search Projects..." value="{{ request.GET.q }}">
         <button type="submit">Search</button>
@@ -18,8 +20,13 @@
                 created_at: {{ project.created_at }}<br>
                 updated_at: {{ project.updated_at}}<br>
                 owner: {{ project.owner }}<br>
+                <a href="{% url 'project_detail' project.id %}">
+                    Detalji
+                </a>
             </li>
         {% endfor %}
     </ul>
+    {%endblock %}
+
 </body>
 </html>

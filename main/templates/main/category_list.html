@@ -16,7 +16,9 @@
                 name: {{ category.name }}<br>
                 color: {{ category.color}}<br>
                 owner: {{ category.owner }}<br>
-                
+                <a href="{% url 'category_detail' category.id %}">
+                    Detalji
+                </a>
             </li>
         {% endfor %}
     </ul>

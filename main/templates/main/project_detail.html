@@ -1,0 +1,19 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalji projekta</title>
+</head>
+<body>
+    {% block content %}
+    Naziv projekta: {{ project.name }} <br>
+    Opis projekta: {{ project.description }} <br>
+    created_at: {{ project.created_at }}<br>
+    updated_at: {{ project.updated_at}}<br>
+    owner: {{ project.owner }}<br>
+    <a href="{% url 'project_list' %}">Natrag na popis projekata</a>
+    {% endblock %}
+</body>
+</html>
