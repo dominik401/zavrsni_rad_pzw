@@ -12,6 +12,8 @@
         <input type="text" name="q" placeholder="Search Projects..." value="{{ request.GET.q }}">
         <button type="submit">Search</button>
     </form>
+    <a href="{% url 'project_create' %}">Dodaj project</a>
+
     <ul>
         {% for project in object_list %}
             <li>
@@ -20,9 +22,9 @@
                 created_at: {{ project.created_at }}<br>
                 updated_at: {{ project.updated_at}}<br>
                 owner: {{ project.owner }}<br>
-                <a href="{% url 'project_detail' project.id %}">
-                    Detalji
-                </a>
+                <a href="{% url 'project_detail' project.id %}">Detalji</a>
+                <a href="{% url 'project_delete' project.id %}">Izbriši</a>
+                <a href="{% url 'project_update' project.id %}">Ažuriraj</a>
             </li>
         {% endfor %}
     </ul>

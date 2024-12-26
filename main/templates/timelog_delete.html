@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Izbrisi vremenski zapis</title>
+</head>
+<body>
+    <h1>Izbrisi</h1>
+    <p>Jeste li sigurni da zelite obrisati vremenski zapis za "{{ timelog.task }}" ?</p>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Potvrdi brisanje">
+    </form>
+</body>
+</html>

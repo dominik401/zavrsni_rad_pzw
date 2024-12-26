@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Izbrisi projekt</title>
+</head>
+<body>
+    <h1>Izbrisi</h1>
+    <p>Jeste li sigurni da zelite obrisati projekt "{{ project.name }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Potvrdi brisanje">
+    </form>
+</body>
+</html>

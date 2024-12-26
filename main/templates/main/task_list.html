@@ -10,6 +10,8 @@
         <input type="text" name="q" placeholder="Search Tasks..." value="{{ request.GET.q }}">
         <button type="submit">Search</button>
     </form>
+    <a href="{% url 'task_create' %}">Dodaj zadatak</a>
+
     <ul>
         {% for task in object_list %}
             <li>
@@ -22,9 +24,10 @@
                 status: {{ task.status }}<br>
                 project: {{ task.project}}<br>
                 assigned_to: {{ task.assigned_to}}<br>
-                <a href="{% url 'task_detail' task.id %}">
-                    Detalji
-                </a>
+                <a href="{% url 'task_detail' task.id %}">Detalji</a>
+                <a href="{% url 'task_delete' task.id %}">Izbriši</a>
+                <a href="{% url 'task_update' task.id %}">Ažuriraj</a>
+
             </li>
         {% endfor %}
     </ul>

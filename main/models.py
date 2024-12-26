@@ -53,7 +53,7 @@ class Category(models.Model):
 
 class TimeLog(models.Model):
     """Model za praćenje vremena provedenog na zadacima."""
-    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name="time_logs")
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name="timelogs")
     start_time = models.DateTimeField()
     end_time = models.DateTimeField(null=True, blank=True)
     notes = models.TextField(blank=True, null=True)

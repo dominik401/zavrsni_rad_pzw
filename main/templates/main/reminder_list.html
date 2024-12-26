@@ -10,15 +10,18 @@
         <input type="text" name="q" placeholder="Search Reminders..." value="{{ request.GET.q }}">
         <button type="submit">Search</button>
     </form>
+    <a href="{% url 'reminder_create' %}">Dodaj podsjetnk</a>
+
     <ul>
         {% for reminder in object_list %}
             <li>
                 task: {{ reminder.task }}<br>
                 reminder_time: {{ reminder.reminder_time}}<br>
                 created_at: {{ reminder.created_at }}<br>
-                <a href="{% url 'reminder_detail' reminder.id %}">
-                    Detalji
-                </a>
+                <a href="{% url 'reminder_detail' reminder.id %}">Detalji</a>
+                <a href="{% url 'reminder_delete' reminder.id %}">Izbriši</a>
+                <a href="{% url 'reminder_update' reminder.id %}">Ažuriraj</a>
+
             </li>
         {% endfor %}
     </ul>

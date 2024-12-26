@@ -10,16 +10,19 @@
         <input type="text" name="q" placeholder="Search Time..." value="{{ request.GET.q }}">
         <button type="submit">Search</button>
     </form>
+    <a href="{% url 'timelog_create' %}">Dodaj vremenski zapis</a>
+
     <ul>
-        {% for time_log in object_list %}
+        {% for timelog in object_list %}
             <li>
-                task: {{ time_log.task }}<br>
-                start_time: {{ time_log.task}}<br>
-                end_time: {{ time_log.end_time }}<br>
-                notes: {{ time_log.notes}}<br>
-                <a href="{% url 'timelog_detail' time_log.id %}">
-                    Detalji
-                </a>
+                task: {{ timelog.task }}<br>
+                start_time: {{ timelog.start_time}}<br>
+                end_time: {{ timelog.end_time }}<br>
+                notes: {{ timelog.notes}}<br>
+                <a href="{% url 'timelog_detail' timelog.id %}">Detalji</a>
+                <a href="{% url 'timelog_delete' timelog.id %}">Izbriši</a>
+                <a href="{% url 'timelog_update' timelog.id %}">Ažuriraj</a>
+
             </li>
         {% endfor %}
     </ul>

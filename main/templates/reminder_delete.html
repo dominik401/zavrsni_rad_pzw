@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Izbrisi podsjetnik</title>
+</head>
+<body>
+    <h1>Izbrisi</h1>
+    <p>Jeste li sigurni da zelite obrisati podsjetnik za "{{ reminder.task }}" ?</p>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Potvrdi brisanje">
+    </form>
+</body>
+</html>

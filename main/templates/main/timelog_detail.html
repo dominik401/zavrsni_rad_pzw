@@ -8,10 +8,10 @@
 </head>
 <body>
     {% block content %}
-    task: {{ time_log.task }}<br>
-    start_time: {{ time_log.task}}<br>
-    end_time: {{ time_log.end_time }}<br>
-    notes: {{ time_log.notes}}<br>
+    task: {{ timelog.task }}<br>
+    start_time: {{ timelog.task}}<br>
+    end_time: {{ timelog.end_time }}<br>
+    notes: {{ timelog.notes}}<br>
     <a href="{% url 'timelog_list' %}">Natrag na popis</a>
     {% endblock %}
 </body>

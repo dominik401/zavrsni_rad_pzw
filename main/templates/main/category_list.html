@@ -10,15 +10,18 @@
         <input type="text" name="q" placeholder="Search Category..." value="{{ request.GET.q }}">
         <button type="submit">Search</button>
     </form>
+    <a href="{% url 'category_create' %}">Dodaj kategoriju</a>
+
     <ul>
         {% for category in object_list %}
             <li>
                 name: {{ category.name }}<br>
                 color: {{ category.color}}<br>
                 owner: {{ category.owner }}<br>
-                <a href="{% url 'category_detail' category.id %}">
-                    Detalji
-                </a>
+                <a href="{% url 'category_detail' category.id %}"> Detalji</a>
+                <a href="{% url 'category_delete' category.id %}">Izbriši</a>
+                <a href="{% url 'category_update' category.id %}">Ažuriraj</a>
+
             </li>
         {% endfor %}
     </ul>
