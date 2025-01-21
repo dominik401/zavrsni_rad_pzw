@@ -1,12 +1,22 @@
 from django.shortcuts import render, redirect
-from . import urls
-from main.forms import ProjectForm, TaskForm, ReminderForm, TimeLogForm, CategoryForm
 from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django import forms
+from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView
-from main.models import Project, Task, Category, TimeLog, Reminder
+
+from . import urls
+from .forms import ProjectForm, TaskForm, ReminderForm, TimeLogForm, CategoryForm
+from .models import Project, Task, Category, TimeLog, Reminder
+from .serializers import ProjectSerializer, TaskSerializer
+
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.permissions import IsAuthenticated
+
+
 
 ############################PROJECT#################################
 
@@ -47,6 +57,14 @@ class ProjectUpdateView(UpdateView):
     form_class = ProjectForm
     template_name = 'project_update.html'
     success_url = reverse_lazy('project_list') 
+
+class ProjectViewSet(ModelViewSet):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return self.queryset.filter(owner=self.request.user)
 
 ###########################TASK#################################
 
@@ -89,6 +107,14 @@ class TaskUpdateView(UpdateView):
     template_name = 'task_update.html'
     success_url = reverse_lazy('task_list') 
 
+class TaskViewSet(ModelViewSet):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return self.queryset.filter(project__owner=self.request.user)
+
 ###########################CATEGORY#################################
 
 class CategoryList(ListView):
@@ -130,7 +156,7 @@ class CategoryUpdateView(UpdateView):
     template_name = 'category_update.html'
     success_url = reverse_lazy('category_list') 
 
-###########################CATEGORY#################################
+###########################TIMELOG#################################
 
 class TimeLogList(ListView):
     model = TimeLog
@@ -219,17 +245,44 @@ def index(request):
 
 ###########################REGISTER#################################
 
+class CustomUserCreationForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("Email is already in use.")
+        return email
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.email = self.cleaned_data['email']
+        if commit:
+            user.save()
+        return user
+
+
 def register(request):
+    if request.user.is_authenticated:
+        return redirect('index') 
+    
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)  
         if form.is_valid():
             form.save()
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
             user = authenticate(username=username, password=password)
             login(request, user)
+            messages.success(request, f"Welcome, {username}! Your account has been created.")
             return redirect('index')
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
+    
     context = {'form': form}
     return render(request, 'registration/register.html', context)
+

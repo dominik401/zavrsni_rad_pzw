@@ -1,9 +1,20 @@
-from django.urls import path
-from main.views import *
+from django.urls import path, include
+from django.contrib.auth import views as auth_views
+from .views import *
 from . import views
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register('project', ProjectViewSet)
+router.register('task', TaskViewSet)
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
+    path('register/', register, name='register'),
+    
+
     path('project/', ProjectList.as_view(), name='project_list'),
     path('project/<int:pk>/', ProjectDetailView.as_view(), name='project_detail'),
     path('project_create/', ProjectCreateView.as_view(), name='project_create'),
@@ -33,5 +44,7 @@ urlpatterns = [
     path('reminder/<int:pk>/', ReminderDetailView.as_view(), name='reminder_detail'),
     path('reminder_create/', ReminderCreateView.as_view(), name='reminder_create'),
     path('reminder_delete/<int:pk>', ReminderDeleteView.as_view(), name='reminder_delete'),
-    path('reminder_update/<int:pk>', ReminderUpdateView.as_view(), name='reminder_update')
+    path('reminder_update/<int:pk>', ReminderUpdateView.as_view(), name='reminder_update'),
+
+    path('api/', include(router.urls)),
 ]
