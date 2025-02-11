@@ -1,31 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Time Log</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <form method="GET" action="">
-        <input type="text" name="q" placeholder="Search Time..." value="{{ request.GET.q }}">
-        <button type="submit">Search</button>
+    <form method="GET" action="" class="search-form">
+        <input type="text" name="q" placeholder="Search TimeLogs..." value="{{ request.GET.q }}" class="search-input">
+        <button type="submit" class="btn search-btn">Search</button>
     </form>
-    <a href="{% url 'timelog_create' %}">Dodaj vremenski zapis</a>
+    <a href="{% url 'timelog_create' %}" class="btn btn-primary">Dodaj vremenski zapis</a>
 
-    <ul>
+    <ul class="no-bullets">
         {% for timelog in object_list %}
             <li>
-                task: {{ timelog.task }}<br>
-                start_time: {{ timelog.start_time}}<br>
-                end_time: {{ timelog.end_time }}<br>
-                notes: {{ timelog.notes}}<br>
-                <a href="{% url 'timelog_detail' timelog.id %}">Detalji</a>
-                <a href="{% url 'timelog_delete' timelog.id %}">Izbriši</a>
-                <a href="{% url 'timelog_update' timelog.id %}">Ažuriraj</a>
-
+                <div class="container">
+                    <div class="card">
+                        <h2 class="card-title">Zadatak: {{ timelog.task }}</h2>
+                        <p class="card-description">Početak: {{ timelog.start_time }}</p>
+                        <p class="card-description">Kraj: {{ timelog.end_time }}</p>
+                        <p class="card-description">Bilješke: {{ timelog.notes }}</p>
+                        <a href="{% url 'timelog_detail' timelog.id %}" class="btn btn-primary">Detalji</a>
+                        <a href="{% url 'timelog_delete' timelog.id %}" class="btn btn-danger">Izbriši</a>
+                        <a href="{% url 'timelog_update' timelog.id %}" class="btn btn-warning">Ažuriraj</a>
+                    </div>
+                </div>
             </li>
         {% endfor %}
     </ul>
-
 </body>
 </html>

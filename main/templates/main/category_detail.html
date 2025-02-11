@@ -1,17 +1,23 @@
 
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalji o kategoriji</title>
 </head>
 <body>
+    <div class="container">
+        <div class="card">
+            <h2 class="card-title"> Naziv kategorije: {{ category.name }}</h2>
+            <p class="card-description"> Boja: {{ category.color }}</p>
+            <p class="card-description"> Owner: {{ category.owner }}</p>
+            <a href="{% url 'category_list' %}" class="btn">Natrag na popis</a>
+        </div>
+    </div>
     {% block content %}
-    Naziv Kategorije: {{ category.name }} <br>
-    Boja kategorije: {{ category.color }} <br>
-    owner: {{ category.owner }}<br>
-    <a href="{% url 'category_list' %}">Natrag na popis</a>
     {% endblock %}
 </body>
 </html>

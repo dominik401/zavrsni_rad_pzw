@@ -4,30 +4,110 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <h1>Welcome to the Homepage</h1>
+    <!-- Navbar with title -->
+    <nav class="navbar">
+        <h1 class="navbar-title">Moja Aplikacija</h1>
+        <button class="hamburger" id="hamburger">☰</button>
+        <ul id="nav-links">
+            <li><a href="{% url 'project_list' %}">Projekti</a></li>
+            <li><a href="{% url 'task_list' %}">Zadaci</a></li>
+            <li><a href="{% url 'reminder_list' %}">Podsjetnici</a></li>
+            <li><a href="{% url 'timelog_list' %}">Vrijeme</a></li>
+            <li><a href="{% url 'logout' %}" class="btn btn-danger">Odjava</a></li>
+        </ul>
+    </nav>
+    
 
-    {% if user.is_authenticated %}
-        <p>Welcome, {{ user.username }}!</p>
-        <nav>
-            <ul>
-                <li><a href="{% url 'category_list' %}">Categories</a></li>
-                <li><a href="{% url 'project_list' %}">Projects</a></li>
-                <li><a href="{% url 'reminder_list' %}">Reminders</a></li>
-                <li><a href="{% url 'task_list' %}">Tasks</a></li>
-                <li><a href="{% url 'timelog_list' %}">Time Logs</a></li>
-            </ul>
-        </nav>
-        <p><a href="{% url 'logout' %}">Logout</a></p>
-    {% else %}
-        <p>You are not logged in.</p>
-        <nav>
-            <ul>
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'register' %}">Register</a></li>
-            </ul>
-        </nav>
-    {% endif %}
+    <!-- Latest Projects -->
+    <h2>Latest Projects</h2>
+
+    <div class="card-container">
+        <div class="card">
+            <h2 class="card-title">{{ project.name }}</h2>
+            <p class="card-description">{{ project.description }}</p>
+        </div>
+        <div class="card">
+            <h2 class="card-title">{{ projects.1.title }}</h2>
+            <p class="card-description">{{ projects.1.description }}</p>
+        </div>
+        <div class="card">
+            <h2 class="card-title">{{ projects.2.title }}</h2>
+            <p class="card-description">{{ projects.2.description }}</p>
+        </div>
+        <div class="card">
+            <h2 class="card-title">{{ projects.3.title }}</h2>
+            <p class="card-description">{{ projects.3.description }}</p>
+        </div>
+        <div class="card">
+            <h2 class="card-title">{{ projects.4.title }}</h2>
+            <p class="card-description">{{ projects.4.description }}</p>
+        </div>
+        <div class="card">
+            <a href="{% url 'project_list' %}" class="btn btn-primary">View All Projects</a>
+        </div>
+    </div>
+
+    <!-- Latest Reminders -->
+    <h2>Latest Reminders</h2>
+
+    <div class="card-container">
+        <div class="card">
+            <h2 class="card-title">{{ reminders.0.title }}</h2>
+            <p class="card-description">{{ reminders.0.details }}</p>
+        </div>
+        <div class="card">
+            <h2 class="card-title">{{ reminders.1.title }}</h2>
+            <p class="card-description">{{ reminders.1.details }}</p>
+        </div>
+        <div class="card">
+            <h2 class="card-title">{{ reminders.2.title }}</h2>
+            <p class="card-description">{{ reminders.2.details }}</p>
+        </div>
+        <div class="card">
+            <h2 class="card-title">{{ reminders.3.title }}</h2>
+            <p class="card-description">{{ reminders.3.details }}</p>
+        </div>
+        <div class="card">
+            <h2 class="card-title">{{ reminders.4.title }}</h2>
+            <p class="card-description">{{ reminders.4.details }}</p>
+        </div>
+        <div class="card">
+            <a href="{% url 'reminder_list' %}" class="btn btn-primary">View All Reminders</a>
+        </div>
+    </div>
+
+    <!-- Latest Tasks -->
+    <h2>Latest Tasks</h2>
+
+    <div class="card-container">
+        <div class="card">
+            <h2 class="card-title">{{ tasks.0.title }}</h2>
+            <p class="card-description">{{ tasks.0.due_date }}</p>
+        </div>
+        <div class="card">
+            <h2 class="card-title">{{ tasks.1.title }}</h2>
+            <p class="card-description">{{ tasks.1.due_date }}</p>
+        </div>
+        <div class="card">
+            <h2 class="card-title">{{ tasks.2.title }}</h2>
+            <p class="card-description">{{ tasks.2.due_date }}</p>
+        </div>
+        <div class="card">
+            <h2 class="card-title">{{ tasks.3.title }}</h2>
+            <p class="card-description">{{ tasks.3.due_date }}</p>
+        </div>
+        <div class="card">
+            <h2 class="card-title">{{ tasks.4.title }}</h2>
+            <p class="card-description">{{ tasks.4.due_date }}</p>
+        </div>
+        <div class="card">
+            <a href="{% url 'task_list' %}" class="btn btn-primary">View All Tasks</a>
+        </div>
+    </div>
+
 </body>
 </html>

@@ -1,34 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    {%block content%}
+    {% block content %}
 
-    <form method="GET" action="">
-        <input type="text" name="q" placeholder="Search Projects..." value="{{ request.GET.q }}">
-        <button type="submit">Search</button>
+    <form method="GET" action="" class="search-form">
+        <input type="text" name="q" placeholder="Search Projects..." value="{{ request.GET.q }}" class="search-input">
+        <button type="submit" class="btn search-btn">Search</button>
     </form>
-    <a href="{% url 'project_create' %}">Dodaj project</a>
+    <a href="{% url 'project_create' %}" class="btn btn-primary">Dodaj project</a>
 
-    <ul>
+    <ul class="no-bullets">
         {% for project in object_list %}
             <li>
-                name: {{ project.name }}<br>
-                description: {{ project.description}}<br>
-                created_at: {{ project.created_at }}<br>
-                updated_at: {{ project.updated_at}}<br>
-                owner: {{ project.owner }}<br>
-                <a href="{% url 'project_detail' project.id %}">Detalji</a>
-                <a href="{% url 'project_delete' project.id %}">Izbriši</a>
-                <a href="{% url 'project_update' project.id %}">Ažuriraj</a>
+                <div class="container">
+                    <div class="card">
+                        <h2 class="card-title">Naziv: {{ project.name }}</h2>
+                        <p class="card-description">Opis: {{ project.description }}</p>
+                        <p class="card-description">Kreirano: {{ project.created_at }}</p>
+                        <p class="card-description">Ažurirano: {{ project.updated_at }}</p>
+                        <p class="card-description">Vlasnik: {{ project.owner }}</p>
+                        <a href="{% url 'project_detail' project.id %}" class="btn btn-primary">Detalji</a>
+                        <a href="{% url 'project_delete' project.id %}" class="btn btn-danger">Izbriši</a>
+                        <a href="{% url 'project_update' project.id %}" class="btn btn-warning">Ažuriraj</a>
+                    </div>
+                </div>
             </li>
         {% endfor %}
     </ul>
-    {%endblock %}
-
+    {% endblock %}
 </body>
 </html>

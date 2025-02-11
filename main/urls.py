@@ -1,15 +1,17 @@
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from .views import *
+from .views import ProjectViewSet
 from . import views
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-router.register('project', ProjectViewSet)
-router.register('task', TaskViewSet)
+router.register(r'projects', ProjectViewSet)
+router.register(r'tasks', TaskViewSet)
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('api/', include(router.urls)),
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
     path('register/', register, name='register'),
@@ -46,5 +48,4 @@ urlpatterns = [
     path('reminder_delete/<int:pk>', ReminderDeleteView.as_view(), name='reminder_delete'),
     path('reminder_update/<int:pk>', ReminderUpdateView.as_view(), name='reminder_update'),
 
-    path('api/', include(router.urls)),
 ]
