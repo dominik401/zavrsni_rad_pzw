@@ -1,97 +1,220 @@
-/* Basic styling for the page */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f6f9;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
+:root{
+  --primary-color: #11121a;
+  --hover-color: #272832;
+  --accent-color: #0071FF;
+  --text-color: #c9c9c9;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html{
+  font-family: Poppins, 'Segoe UI', sans-serif;
+  color: var(--text-color);
+  scroll-behavior: smooth; /*For bookmark links*/
+}
+body{
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--primary-color);
+}
+main{
+  padding: min(1.5em, 7%);
+}
+main p{
+  margin-top: .35em;
+}
+nav{
+  background-color: var(--primary-color);
+  border-bottom: 1px solid var(--hover-color);
+}
+nav ul{
+  list-style: none;
+  display: flex;
+}
+nav .home-li{
+  margin-right: auto;
+}
+nav li{
+  display: flex;
+}
+nav a{
+  display: flex;
+  text-decoration: none;
+  color: var(--text-color);
+  padding: 1em 2em;
+  transition: background-color 150ms ease;
+}
+nav a:hover{
+  background-color: var(--hover-color);
+}
+nav a.active-link{
+  border-bottom: 2px solid var(--text-color);
+}
+nav a.accent-link{
+  background-color: var(--accent-color);
+}
+#open-sidebar-button{
+  display: none;
+  background: none;
+  border: none;
+  padding: 1em;
+  margin-left: auto;
+  cursor: pointer;
+}
+#close-sidebar-button{
+  display: none;
+  background: none;
+  border: none;
+  padding: 1em;
+  cursor: pointer;
+}
+#overlay{
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  inset: 0;
+  z-index: 9;
+  display: none;
+}
+.skip-link {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+  background-color: var(--accent-color); 
+  color: #ffffff; 
+  padding: 12px 24px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: opacity 0.3s ease;
 }
 
-/* General Navbar Styles */
-.navbar {
-    background-color: #007bff; /* Blue color */
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.skip-link:focus {
+  opacity: 1; 
+  pointer-events: auto; 
+  outline: 3px solid #ffffff; 
+}
+@media screen and (max-width: 700px) {
+  #open-sidebar-button, #close-sidebar-button{
+    display: block;
+  }
+  nav{
+    position: fixed;
+    top: 0;
+    right: -100%;
+    height: 100vh;
+    width: min(15em, 100%);
+    z-index: 10;
+    border-left: 1px solid var(--hover-color);
+    transition: right 300ms ease-in-out;
+  }
+  nav.show{
+    right: 0;
+  }
+  nav.show ~ #overlay{
+    display: block;
+  }
+  nav ul{
+    width: 100%;
+    flex-direction: column;
+  }
+  nav a{
+    width: 100%;
+    padding-left: 2.5em;
+  }
+  nav a.active-link{
+    border-bottom: none;
+  }
+  nav .home-li{
+    margin-right: unset;
+  }
 }
 
-.navbar-title {
-    color: white;
-    font-size: 2rem;
-    margin: 0;
-}
-
-.navbar ul {
-    list-style-type: none;
-    padding: 0;
-    display: flex;
-    gap: 15px;
-}
-
-.navbar a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.1rem;
-}
-
-.navbar a:hover {
-    text-decoration: underline;
-}
-
-/* Responsive Hamburger Menu */
-.hamburger {
-    font-size: 2rem;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-    display: none; /* Hidden by default */
-}
-
-@media screen and (max-width: 768px) {
-    .navbar ul {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        width: 100%;
-        background-color: #007bff;
-        text-align: center;
-        padding: 15px 0;
-    }
-
-    .navbar ul.active {
-        display: flex;
-    }
-
-    .navbar ul li {
-        padding: 10px 0;
-    }
-
-    .hamburger {
-        display: block;
-    }
-}
-
-
-/* Category cards styling */
 .card-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
-    padding: 20px;
-    justify-content: center;
+    padding: 15px;
 }
 
-.card {
-    background: #b5dafe;
+
+
+.pre-card-title {
+    font-size: 1.5rem;
+    color: #E4E6EB;
+    margin-bottom: 10px;
+    cursor:default;
+    padding: 10px;
+}
+
+@media (max-width: 1024px) {
+    .card-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #6C757D;
+    background-color: #323544;
+    color: #E4E6EB;
+}
+
+.password-rules {
+    margin-top: 20px;
+    padding: 15px;
+    background: #323544;
     border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.password-list {
+    padding-left: 20px;
+}
+
+.password-list li {
+    margin-bottom: 8px;
+    color: #E4E6EB;
+}
+
+
+.card-reg {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #40445A;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+
+.card {
+    background: #40445A;
+    border-radius: 15px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     padding: 20px;
     transition: transform 0.2s ease-in-out;
     cursor: pointer;
-    margin: 5px;
+    margin: 15px;
 }
 
 .card:hover {
@@ -100,64 +223,106 @@ body {
 
 .card-title {
     font-size: 1.5rem;
-    color: #333;
+    color: #E4E6EB;
     margin-bottom: 10px;
-    margin-left: 5px;
 }
 
 .card-description {
-    color: #666;
+    color: #B0B3C3;
 }
 
+.sticky  {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    backdrop-filter: blur(5px);  /* Blurs content behind */
+    -webkit-backdrop-filter: blur(5px); /* Safari support */
+    background: linear-gradient(to bottom, #11121a, rgba(0, 0, 0, 0.100));
+}
+
+
+/* Buttons */
 .btn {
-    display: inline-block;
+    display:inline-block;
     padding: 10px 15px;
     margin-top: 10px;
-    text-decoration: none;
     border-radius: 5px;
-    transition: background 0.3s;
+    text-decoration: none;
     color: white;
 }
 
 .btn-primary {
-    background: #007bff;
+    background: #5865F2;
+}
+
+.btn-primary-add {
+    background: #5865F2;
+    width: auto;
+    margin: 20px;
+    float: right; 
+    bottom: 20px;
+    position: fixed;
+    right: 20px;
+    padding: 10px 20px;
+}
+
+.btn-float {
+    width: auto;
+    margin: 20px;
+    float: center; 
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px; 
+}
+
+.btn-primary-back {
+    background: #5865F2;
+    width: auto;
+    margin: 15px;
+    position: sticky;
+    padding: 10px 20px; 
 }
 
 .btn-primary:hover {
-    background: #0056b3;
+    background: #4752C4;
 }
 
 .btn-warning {
-    background: #ffc107;
+    background: #E4A11B;
     color: black;
 }
 
 .btn-warning:hover {
-    background: #d39e00;
+    background: #C28817;
 }
 
 .btn-danger {
-    background: #dc3545;
+    background: #D83A56;
 }
 
 .btn-danger:hover {
-    background: #bd2130;
+    background: #B72E46;
 }
 
-/* Styling for the search input */
+/* Search input */
 .search-form {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    margin: 15px;
+    right: 20px;
 }
 
 .search-input {
     padding: 10px;
     width: 200px;
-    border: 1px solid #ccc;
+    border: 1px solid #6C757D;
     border-radius: 5px;
+    background-color: #323544;
+    color: #E4E6EB;
 }
 
 .search-btn {
-    background: #007bff;
+    background: #5865F2;
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
@@ -166,10 +331,9 @@ body {
 }
 
 .search-btn:hover {
-    background: #0056b3;
+    background: #4752C4;
 }
 
-/* Remove bullets from lists */
 ul {
     list-style-type: none;
     padding: 0;

@@ -10,12 +10,11 @@ router.register(r'projects', ProjectViewSet)
 router.register(r'tasks', TaskViewSet)
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('index/', views.index, name='index'),
     path('api/', include(router.urls)),
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
     path('register/', register, name='register'),
-    
 
     path('project/', ProjectList.as_view(), name='project_list'),
     path('project/<int:pk>/', ProjectDetailView.as_view(), name='project_detail'),

@@ -1,21 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="{% static 'registration.js' %}" defer></script>
     <title>Document</title>
 </head>
 <body>
-    <form method="post" action="{% url 'register' %}">
-        {% csrf_token %}
+    <div class="card-reg">
+        <h2 class="card-title">Registracija</h2>
+        <form method="post" action="{% url 'register' %}">
+            {% csrf_token %}
+            {{ form. }}
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
     
-        {% if form.errors %}
-            <p>Greška.</p>
-        {% endif %}
+    <div class="card password-rules">
+        <h3 class="card-title">Uvjeti za lozinku</h3>
+        <ul class="password-list">
+            <li>Minimalno 8 znakova</li>
+            <li>Najmanje jedno veliko slovo</li>
+            <li>Najmanje jedan broj</li>
+            <li>Najmanje jedan posebni znak (!@#$%^&*)</li>
+        </ul>
+    </div>
     
-        {{ form }}
     
-        <input type="submit" value="Register" />
-    </form>
 </body>
 </html>
