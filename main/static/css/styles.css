@@ -2,8 +2,12 @@
 :root{
   --primary-color: #11121a;
   --hover-color: #272832;
-  --accent-color: #0071FF;
+  --accent-color: #5865F2;
+
   --text-color: #c9c9c9;
+  --background--color: #11121a;
+
+  --primary--btn--color: #5865F2;
 }
 *{
   margin: 0;
@@ -13,7 +17,7 @@
 html{
   font-family: Poppins, 'Segoe UI', sans-serif;
   color: var(--text-color);
-  scroll-behavior: smooth; /*For bookmark links*/
+  scroll-behavior: smooth; 
 }
 body{
   min-height: 100vh;
@@ -51,7 +55,8 @@ nav a:hover{
   background-color: var(--hover-color);
 }
 nav a.active-link{
-  border-bottom: 2px solid var(--text-color);
+  border-bottom: 2px solid var(--accent-color);
+  background-color: var(--hover-color);
 }
 nav a.accent-link{
   background-color: var(--accent-color);
@@ -100,7 +105,7 @@ nav a.accent-link{
   pointer-events: auto; 
   outline: 3px solid #ffffff; 
 }
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 1000px) {
   #open-sidebar-button, #close-sidebar-button{
     display: block;
   }
@@ -134,6 +139,10 @@ nav a.accent-link{
   nav .home-li{
     margin-right: unset;
   }
+  .search-input{
+    width: 100%;
+  }
+
 }
 
 .card-container {
@@ -161,11 +170,62 @@ nav a.accent-link{
 
 .form-group {
     margin-bottom: 15px;
+    margin-bottom: 1rem;
 }
 
 .form-group label {
     display: block;
     font-weight: bold;
+}
+
+/* Dropdown stilizacija */
+select.form-control {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+select.form-control:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+label {
+  font-size: 1rem;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+/* Stilizacija za manji dropdown */
+.select-small {
+  width: auto; /* Možete odabrati odgovarajuću širinu za dropdown */
+  max-width: 350px; /* Ograničava širinu */
+  padding: 0.5rem 1rem;
+}
+
+.select-medium{
+  width: 100%;
+  max-width: 500px;
+  padding: 0.5rem 1rem;
+  height: 150%;
+  max-height: 300px;
+}
+
+
+input[type="text"] {
+  background-color: #004C99; /* Svijetla siva pozadina */
+  color: white ;
+  border-color: #001933 ;
+}
+#id_owner {
+  background-color: #004C99; /* Zamijenite s istom bojom */
+  color: white ;
+  border-color: #001933 ;
 }
 
 .form-group input {
@@ -209,7 +269,7 @@ nav a.accent-link{
 
 .card {
     background: #40445A;
-    border-radius: 15px;
+    border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     padding: 20px;
     transition: transform 0.2s ease-in-out;
@@ -218,7 +278,7 @@ nav a.accent-link{
 }
 
 .card:hover {
-    transform: scale(1.02);
+    transform: scale(1.01);
 }
 
 .card-title {
@@ -236,11 +296,44 @@ nav a.accent-link{
     top: 0;
     width: 100%;
     z-index: 1000;
-    backdrop-filter: blur(5px);  /* Blurs content behind */
-    -webkit-backdrop-filter: blur(5px); /* Safari support */
+    backdrop-filter: blur(5px);  
+    -webkit-backdrop-filter: blur(5px); 
     background: linear-gradient(to bottom, #11121a, rgba(0, 0, 0, 0.100));
 }
 
+/* Stilizacija za color picker */
+input[type="color"] {
+  width: 200px;
+  height: 50px;
+  padding: 0;
+  border: transparent;
+  border-radius: 15px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+input[type="color"]:focus {
+  outline: none;
+}
+/* Stilizacija dugmadi unutar forme */
+button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.8rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+button[type="submit"]:focus {
+  outline: none;
+}
 
 /* Buttons */
 .btn {
@@ -304,17 +397,31 @@ nav a.accent-link{
 .btn-danger:hover {
     background: #B72E46;
 }
-
+.btn-home{
+  background: var(--accent-color);
+}
+.btn-login{
+  background: var(--accent-color);
+}
 /* Search input */
+.search{
+  padding: 5px;
+}
 .search-form {
     margin-bottom: 15px;
-    margin: 15px;
     right: 20px;
+    width: 90%;          /* adjusts to viewport width */
+    max-width: 600px;    /* limits the width on larger screens */
+    margin: 15px;
 }
 
 .search-input {
     padding: 10px;
-    width: 200px;
+    width: 100%;
+    height: 100%;
+    max-height: 50px;
+    min-height: 50px;
+    max-width: 250px;
     border: 1px solid #6C757D;
     border-radius: 5px;
     background-color: #323544;
@@ -328,6 +435,13 @@ nav a.accent-link{
     border-radius: 5px;
     color: white;
     cursor: pointer;
+    width: 100%;
+    height: 100%;
+    max-height: 50px;
+    min-height: 50px;
+    max-width: 100px;
+    min-width: 50px;
+
 }
 
 .search-btn:hover {

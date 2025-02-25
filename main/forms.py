@@ -52,7 +52,10 @@ class ReminderForm(forms.ModelForm):
     )
     class Meta:
         model = Reminder
-        fields = ['task']
+        fields = ['task', 'reminder_time']
+        widgets = {
+            'reminder_time': forms.DateTimeInput(format='%Y-%m-%dT%H:%M', attrs={'type': 'datetime-local'})
+        }
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

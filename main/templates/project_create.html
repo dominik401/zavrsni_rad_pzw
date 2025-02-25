@@ -1,14 +1,161 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+{% load static %}
 <head>
-    <title>Dodaj projekt</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dodaj Projekt</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        .container {
+            padding: 20px;
+        }
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        #id_owner {
+            background-color: #54555692; 
+            color: white ;
+            border-color: #001933 ;
+            padding-left: 0.5rem;
+
+        }
+        label {
+            font-size: 1rem;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        select.form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        select.form-control:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        /* Stilizacija za manji dropdown */
+        .select-small {
+            width: auto; /* Možete odabrati odgovarajuću širinu za dropdown */
+            max-width: 350px; /* Ograničava širinu */
+            padding: 0.5rem 1rem;
+        }
+
+        .select-medium{
+            width: 100%;
+            max-width: 500px;
+            padding: 0.5rem 1rem;
+            height: 150%;
+            max-height: 300px;
+        }
+
+
+        /* Stilizacija input polja i textarea */
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: 5px;
+            border: 1px solid #001933;
+            background-color: #54555692;
+            color: white;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        /* Stilizacija submit gumba */
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 0.8rem 1.2rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        button[type="submit"]:focus {
+            outline: none;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Dodaj novi projekt</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Dodaj</button>
-    </form>
+    <button id="open-sidebar-button" onclick="openSidebar()" aria-label="open sidebar" aria-expanded="false" aria-controls="nav">
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#c9c9c9"><path d="M165.13-254.62q-10.68 0-17.9-7.26-7.23-7.26-7.23-18t7.23-17.86q7.22-7.13 17.9-7.13h629.74q10.68 0 17.9 7.26 7.23 7.26 7.23 18t-7.23 17.87q-7.22 7.12-17.9 7.12H165.13Zm0-200.25q-10.68 0-17.9-7.27-7.23-7.26-7.23-17.99 0-10.74 7.23-17.87 7.22-7.13 17.9-7.13h629.74q10.68 0 17.9 7.27 7.23 7.26 7.23 17.99 0 10.74-7.23 17.87-7.22 7.13-17.9 7.13H165.13Zm0-200.26q-10.68 0-17.9-7.26-7.23-7.26-7.23-18t7.23-17.87q7.22-7.12 17.9-7.12h629.74q10.68 0 17.9 7.26 7.23 7.26 7.23 18t-7.23 17.86q-7.22 7.13-17.9 7.13H165.13Z"/></svg>
+    </button>
+
+    <nav id="nav">
+        <ul>
+            <li>
+                <button id="close-sidebar-button" onclick="closeSidebar()" aria-label="close sidebar">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#c9c9c9"><path d="m480-444.62-209.69 209.7q-7.23 7.23-17.5 7.42-10.27.19-17.89-7.42-7.61-7.62-7.61-17.7 0-10.07 7.61-17.69L444.62-480l-209.7-209.69q-7.23-7.23-7.42-17.5-.19-10.27 7.42-17.89 7.62-7.61 17.7-7.61 10.07 0 17.69 7.61L480-515.38l209.69-209.7q7.23-7.23 17.5-7.42 10.27-.19 17.89 7.42 7.61 7.62 7.61 17.7 0 10.07-7.61 17.69L515.38-480l209.7 209.69q7.23 7.23 7.42 17.5.19 10.27-7.42 17.89-7.62 7.61-17.7 7.61-10.07 0-17.69-7.61L480-444.62Z"/></svg>
+                </button>
+            </li>
+            <li class="home-li"><a class="btn-home" aria-current="page" href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'project_list' %}" class="{% if request.path == '/project/' %}active-link{% endif %}">Projekti</a></li>
+            <li><a href="{% url 'task_list' %}" class="{% if request.path == '/task/' %}active-link{% endif %}">Zadaci</a></li>
+            <li><a href="{% url 'category_list' %}" class="{% if request.path == '/category/' %}active-link{% endif %}">Kategorije</a></li>
+            <li><a href="{% url 'reminder_list' %}" class="{% if request.path == '/reminder/' %}active-link{% endif %}">Podsjetnici</a></li>
+            <li><a href="{% url 'timelog_list' %}" class="{% if request.path == '/timelog/' %}active-link{% endif %}">Vremenski zapis</a></li>
+            <li><a href="{% url 'login' %}" class="btn-login">Login</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+            <h2 class="card-title">Dodaj novi projekt</h2>
+            <form method="post">
+                {% csrf_token %}
+                
+                <!-- Naziv projekta -->
+                <div class="form-group">
+                    <label for="id_name">Naziv projekta:</label>
+                    <input type="text" name="name" id="id_name" class="form-control select-small" value="{{ project.name }}">
+                </div>
+
+                <!-- Opis projekta -->
+                <div class="form-group">
+                    <label for="id_description">Opis projekta:</label>
+                    <textarea name="description" id="id_description" class="form-control select-medium">{{ project.description }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_owner">Vlasnik:</label>
+                    <select name="owner" id="id_owner" class="form-control select-small">
+                        {% for user in form.owner.field.queryset %}
+                            <option value="{{ user.id }}" {% if user == form.owner.value %}selected{% endif %}>
+                                {{ user.username }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Dodaj</button>
+            </form>
+            <a href="{% url 'project_list' %}" class="btn btn-primary">Natrag na popis projekata</a>
+    </div>
 </body>
 </html>
