@@ -6,28 +6,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <script src="{% static 'registration.js' %}" defer></script>
-    <title>Document</title>
+    <style>
+        .container {
+            padding: 20px;
+        }
+        .spacing{
+            margin-top: 20px;
+        }
+    </style>
+    <title>Registracija</title>
 </head>
-<body>
-    <div class="card-reg">
-        <h2 class="card-title">Registracija</h2>
-        <form method="post" action="{% url 'register' %}">
-            {% csrf_token %}
-            {{ form. }}
-            <button type="submit" class="btn btn-primary">Register</button>
-        </form>
-    </div>
+<body> 
+    <div class="container">
+        <div class="card-reg">
+            <h2 class="card-title">Registracija</h2>
+            <form method="post" action="{% url 'register' %}">
+                {% csrf_token %}
     
-    <div class="card password-rules">
-        <h3 class="card-title">Uvjeti za lozinku</h3>
-        <ul class="password-list">
-            <li>Minimalno 8 znakova</li>
-            <li>Najmanje jedno veliko slovo</li>
-            <li>Najmanje jedan broj</li>
-            <li>Najmanje jedan posebni znak (!@#$%^&*)</li>
-        </ul>
+                <div class="form-group select-small">
+                    <label>{{ form.username.label_tag }}</label>
+                    {{ form.username }}
+                </div>
+                
+                <div class="form-group select-small">
+                    <label>{{ form.email.label_tag }}</label>
+                    {{ form.email }}
+                </div>
+    
+                <div class="form-group select-small">
+                    <label>{{ form.password1.label_tag }}</label>
+                    {{ form.password1 }}
+                </div>
+    
+                <div class="form-group select-small">
+                    <label>{{ form.password2.label_tag }}</label>
+                    {{ form.password2 }}
+                </div>
+    
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+    
+            <div class="spacing">
+                <p>Već imate račun? <a href="{% url 'login' %}">Login</a></p>   
+            </div>
+        </div>
     </div>
     
     
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector("form");
+    const passwordField = document.querySelector("#id_password1");
+    const confirmPasswordField = document.querySelector("#id_password2");
+
+    form.addEventListener("submit", function (event) {
+        let errors = [];
+
+        if (passwordField.value.length < 8) {
+            errors.push("Lozinka mora imati najmanje 8 znakova.");
+        }
+        if (!/[A-Z]/.test(passwordField.value)) {
+            errors.push("Lozinka mora sadržavati barem jedno veliko slovo.");
+        }
+        if (!/\d/.test(passwordField.value)) {
+            errors.push("Lozinka mora sadržavati barem jedan broj.");
+        }
+        if (!/[!@#$%^&*]/.test(passwordField.value)) {
+            errors.push("Lozinka mora sadržavati barem jedan posebni znak (!@#$%^&*).");
+        }
+        if (passwordField.value !== confirmPasswordField.value) {
+            errors.push("Lozinke se ne podudaraju.");
+        }
+
+        if (errors.length > 0) {
+            event.preventDefault();
+            alert(errors.join("\n"));
+        }
+    });
+});
+
+</script>
 </html>

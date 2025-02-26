@@ -12,12 +12,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = '/login/'
-LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = 'login'  # URL za login ako korisnik nije prijavljen
+LOGIN_REDIRECT_URL = '/'  # Nakon login-a preusmjeri na početnu
+LOGOUT_REDIRECT_URL = 'login' # Nakon logout-a preusmjeri na login stranicu
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -71,6 +69,11 @@ TEMPLATES = [
         },
     },
 ]
+
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 7  # Sesija traje 7 dana
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Ne briše sesiju pri zatvaranju preglednika
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Sprema sesiju u bazu
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [

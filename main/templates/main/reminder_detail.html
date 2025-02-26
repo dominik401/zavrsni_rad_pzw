@@ -6,11 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalji podsjetnika</title>
-    <script>
-        function confirmDelete() {
-            return confirm("Jeste li sigurni da želite izbrisati ovaj zadatak?");
-        }
-    </script>
 </head>
 <body>
     <button id="open-sidebar-button" onclick="openSidebar()" aria-label="open sidebar" aria-expanded="false" aria-controls="nav">
@@ -30,7 +25,18 @@
             <li><a href="{% url 'category_list' %}" class="{% if request.path == '/category/' %}active-link{% endif %}">Kategorije</a></li>
             <li><a href="{% url 'reminder_list' %}" class="{% if request.path == '/reminder/' %}active-link{% endif %}">Podsjetnici</a></li>
             <li><a href="{% url 'timelog_list' %}" class="{% if request.path == '/timelog/' %}active-link{% endif %}">Vremenski zapis</a></li>
-            <li><a href="{% url 'login' %}" class="btn-login">Login</a></li>
+            <li>
+                {% if request.user.is_authenticated %}
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="login" class="btn-login" id="user_display" onmouseover="showLogout()" onmouseleave="showUsername()">
+                            {{ request.user.username }}
+                        </button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn-login">Login</a>
+                {% endif %}
+            </li>
         </ul>
     </nav>
     <div id="overlay" onclick="closeSidebar()" aria-hidden="true"></div>
@@ -40,8 +46,8 @@
             <p class="card-description"> Zadatak: {{ reminder.task }}</p>
             <p class="card-description"> Vrijeme podsjetnika: {{ reminder.reminder_time }}</p>
             <p class="card-description"> Kreirano: {{ reminder.created_at }}</p>
-            <a href="{% url 'reminder_update' task.id %}" class="btn btn-warning">Ažuriraj</a>
-            <a href="{% url 'reminder_delete' task.id %}" class="btn btn-danger">Izbriši</a>
+            <a href="{% url 'reminder_update' reminder.id %}" class="btn btn-warning">Ažuriraj</a>
+            <a href="{% url 'reminder_delete' reminder.id %}" class="btn btn-danger">Izbriši</a>
 
         </div>
     </div>

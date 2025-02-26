@@ -3,11 +3,11 @@
   --primary-color: #11121a;
   --hover-color: #272832;
   --accent-color: #5865F2;
-
+  --hover--accent-color: #4e56a4;
   --text-color: #c9c9c9;
   --background--color: #11121a;
-
   --primary--btn--color: #5865F2;
+  --search--form--back--color:  #54555692;
 }
 *{
   margin: 0;
@@ -133,6 +133,10 @@ nav a.accent-link{
     width: 100%;
     padding-left: 2.5em;
   }
+  nav a.btn-login{
+    width: 100%;
+    padding-right: 0.5em;
+  }
   nav a.active-link{
     border-bottom: none;
   }
@@ -143,6 +147,38 @@ nav a.accent-link{
     width: 100%;
   }
 
+}
+
+.user-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.user-menu .overlay {
+  display: none;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  z-index: 100;
+}
+
+.user-menu a {
+  text-decoration: none;
+  background-color: #007bff;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.user-menu a:hover {
+  background-color: #0056b3;
 }
 
 .card-container {
@@ -201,13 +237,14 @@ label {
   margin-bottom: 0.5rem;
 }
 
-/* Stilizacija za manji dropdown */
+/* Stilizacija za manji input */
 .select-small {
   width: auto; /* Možete odabrati odgovarajuću širinu za dropdown */
   max-width: 350px; /* Ograničava širinu */
   padding: 0.5rem 1rem;
 }
 
+/* Stilizacija za srednji input */
 .select-medium{
   width: 100%;
   max-width: 500px;
@@ -216,26 +253,22 @@ label {
   max-height: 300px;
 }
 
-
+/* Stilizacija za search polje u listama */
 input[type="text"] {
-  background-color: #004C99; /* Svijetla siva pozadina */
-  color: white ;
-  border-color: #001933 ;
-}
-#id_owner {
-  background-color: #004C99; /* Zamijenite s istom bojom */
+  background-color: var(--search--form--back--color) ;/* Svijetla siva pozadina */
   color: white ;
   border-color: #001933 ;
 }
 
+/*datumi*/
 .form-group input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border-radius: 5px;
-    border: 1px solid #6C757D;
-    background-color: #323544;
-    color: #E4E6EB;
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #6C757D;
+  background-color: #323544;
+  color: #E4E6EB;
 }
 
 .password-rules {
@@ -255,7 +288,7 @@ input[type="text"] {
     color: #E4E6EB;
 }
 
-
+/*register page kartica*/
 .card-reg {
     max-width: 400px;
     margin: 50px auto;
@@ -263,10 +296,11 @@ input[type="text"] {
     background: #40445A;
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    text-wrap: wrap;
     text-align: center;
 }
 
-
+/* kartica iz lista */
 .card {
     background: #40445A;
     border-radius: 10px;
@@ -276,21 +310,19 @@ input[type="text"] {
     cursor: pointer;
     margin: 15px;
 }
-
 .card:hover {
     transform: scale(1.01);
 }
-
 .card-title {
     font-size: 1.5rem;
     color: #E4E6EB;
     margin-bottom: 10px;
 }
-
 .card-description {
     color: #B0B3C3;
 }
 
+/* navigacija */
 .sticky  {
     position: sticky;
     top: 0;
@@ -301,7 +333,7 @@ input[type="text"] {
     background: linear-gradient(to bottom, #11121a, rgba(0, 0, 0, 0.100));
 }
 
-/* Stilizacija za color picker */
+/* Stilizacija za color picker kod kategorija*/
 input[type="color"] {
   width: 200px;
   height: 50px;
@@ -311,24 +343,40 @@ input[type="color"] {
   background-color: transparent;
   cursor: pointer;
 }
-
 input[type="color"]:focus {
   outline: none;
 }
+
 /* Stilizacija dugmadi unutar forme */
 button[type="submit"] {
-  background-color: #007bff;
+  background-color: var(--accent-color);
   color: #fff;
-  padding: 0.8rem 1.2rem;
   font-size: 1rem;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
+button[type="login"] {
+  background-color: var(--accent-color);
+  color: #fff;
+  padding: 1.2rem 1rem;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="login"]:hover {
+  background-color: var(--hover--accent-color);
+}
+
+button[type="login"]:focus {
+  outline: none;
+}
+
 button[type="submit"]:hover {
-  background-color: #0056b3;
+  background-color: var(--hover--accent-color);
 }
 
 button[type="submit"]:focus {
@@ -350,7 +398,7 @@ button[type="submit"]:focus {
 }
 
 .btn-primary-add {
-    background: #5865F2;
+    background: var(--accent-color);
     width: auto;
     margin: 20px;
     float: right; 
@@ -358,6 +406,9 @@ button[type="submit"]:focus {
     position: fixed;
     right: 20px;
     padding: 10px 20px;
+}
+.btn-primary-add:hover {
+    background: var(--hover--accent-color);
 }
 
 .btn-float {
@@ -403,9 +454,10 @@ button[type="submit"]:focus {
 .btn-login{
   background: var(--accent-color);
 }
+
 /* Search input */
 .search{
-  padding: 5px;
+    padding: 5px;
 }
 .search-form {
     margin-bottom: 15px;
@@ -424,13 +476,14 @@ button[type="submit"]:focus {
     max-width: 250px;
     border: 1px solid #6C757D;
     border-radius: 5px;
-    background-color: #323544;
-    color: #E4E6EB;
+    background-color: #343c60;
+    color: #ffffff;
+
 }
 
 .search-btn {
     background: #5865F2;
-    padding: 10px 15px;
+    padding: 10px;
     border: none;
     border-radius: 5px;
     color: white;

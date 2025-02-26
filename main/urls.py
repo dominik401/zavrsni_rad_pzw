@@ -5,15 +5,10 @@ from .views import ProjectViewSet
 from . import views
 from rest_framework.routers import DefaultRouter
 
-router = DefaultRouter()
-router.register(r'projects', ProjectViewSet)
-router.register(r'tasks', TaskViewSet)
-
 urlpatterns = [
-    path('index/', views.index, name='index'),
-    path('api/', include(router.urls)),
+    path('', views.index, name='index'),    
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='registration/logout.html'), name='logout'),
     path('register/', register, name='register'),
 
     path('project/', ProjectList.as_view(), name='project_list'),

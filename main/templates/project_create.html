@@ -121,7 +121,18 @@
             <li><a href="{% url 'category_list' %}" class="{% if request.path == '/category/' %}active-link{% endif %}">Kategorije</a></li>
             <li><a href="{% url 'reminder_list' %}" class="{% if request.path == '/reminder/' %}active-link{% endif %}">Podsjetnici</a></li>
             <li><a href="{% url 'timelog_list' %}" class="{% if request.path == '/timelog/' %}active-link{% endif %}">Vremenski zapis</a></li>
-            <li><a href="{% url 'login' %}" class="btn-login">Login</a></li>
+            <li>
+                {% if request.user.is_authenticated %}
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="login" class="btn-login" id="user_display" onmouseover="showLogout()" onmouseleave="showUsername()">
+                            {{ request.user.username }}
+                        </button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn-login">Login</a>
+                {% endif %}
+            </li>
         </ul>
     </nav>
 

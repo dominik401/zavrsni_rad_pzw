@@ -6,11 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <script src="{% static 'login.js' %}" defer></script>
-
+    <style>
+      .spacing{
+        margin-top: 20px;
+      }
+    </style>
     <title>Document</title>
 </head>
 <body>
-    
   <div class="card-reg">
     <h2 class="card-title">Login</h2>
     <form method="post" action="{% url 'login' %}">
@@ -26,11 +29,13 @@
         <button type="submit" class="btn btn-primary">Login</button>
         <input type="hidden" name="next" value="{{ next }}" />
     </form>
+    <div class="spacing">
+      <p>Nemate račun? <a href="{% url 'register' %}">Registracija</a></p>
+    </div>
+  </div>
 
-  </div>
-  <div class="btn-float">
-    <button class="btn btn-primary" href="{% url 'register' %}">Register</button> 
-  </div>
+
+
 
       
       {% if form.errors %}
@@ -47,4 +52,18 @@
       {% endif %}
 
 </body>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector("form");
+    const usernameField = document.querySelector("#id_username");
+    const passwordField = document.querySelector("#id_password");
+
+    form.addEventListener("submit", function (event) {
+        if (usernameField.value.trim() === "" || passwordField.value.trim() === "") {
+            event.preventDefault();
+            alert("Korisničko ime i lozinka ne mogu biti prazni.");
+        }
+    });
+});
+</script>
 </html>
